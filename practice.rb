@@ -27,3 +27,35 @@ blockchain = [
 # Anthony's KelloggCoin balance is 2650
 
 # 👇👇👇 Your code HERE 👇👇👇
+
+# Create a hash to track each user's wallet balance
+wallets = {}
+
+# Loop through each transaction in the blockchain
+for transaction in blockchain
+  from_user = transaction["from_user"]
+  to_user = transaction["to_user"]
+  amount = transaction["amount"]
+  
+  # If there's a sender (not an ICO transaction), subtract from their balance
+  if from_user != nil
+    # Initialize wallet to 0 if user doesn't exist yet
+    if wallets[from_user] == nil
+      wallets[from_user] = 0
+    end
+    wallets[from_user] = wallets[from_user] - amount
+  end
+  
+  # Add the amount to the recipient's balance
+  # Initialize wallet to 0 if user doesn't exist yet
+  if wallets[to_user] == nil
+    wallets[to_user] = 0
+  end
+  wallets[to_user] = wallets[to_user] + amount
+end
+
+# Print each user's final balance with proper formatting
+for user in wallets.keys
+  balance = wallets[user]
+  puts "#{user.capitalize}'s KelloggCoin balance is #{balance}"
+end
